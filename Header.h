@@ -11,7 +11,7 @@ using namespace std;
 class SudokuGame
 {
 private:
-	vector<vector<int>> puzzle;
+	vector<vector<int>> puzzle = {}; //Sudoku puzzle Vectoru Hazır bi şekilde eklenecek
 public:
 	void showMenu()
 	{
