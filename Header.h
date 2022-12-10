@@ -13,7 +13,7 @@ class SudokuGame
 private:
 	vector<vector<int>> puzzle{}; //Sudoku puzzle Vectoru Hazır bi şekilde eklenecek
 public:
-	void showMenu()
+	SudokuGame()
 	{
 		cout << setw(50) << "Welcome to Sudoku Game" << endl << setw(40)
 			<< "Rules" << endl << endl << setw(20) << "1. Use Numbers 1-9" << endl
