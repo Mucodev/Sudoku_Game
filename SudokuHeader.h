@@ -74,10 +74,33 @@ public:
 	}
 	void displayGame(); //Alperen
 	bool columnControl(); //Onur
-	bool rowControl(); //Mücahit
+	bool rowControl(int row,int tnumber) // Mücahit
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			if (sudokuArray[9*row + i] == tnumber)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+	}
 	bool squareControl(); //Alperen
 	void inputs(int number); //Onur
-	void showSolution(); //Mücahit
+	void showSolution() // Mücahit
+	{
+		for (int r = 0; r < 9; r++)
+		{
+			for (int c = 0; c < 9; c++)
+			{
+				cout << sudokuArray[r * 9 + c] << " ";
+			}
+			cout << endl;
+		}
+	}
 };
 
 
