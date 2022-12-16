@@ -21,12 +21,12 @@ public:
 		cout << "Press any key to continue...";
 		(void)_getch();
 	}
-	void displayGame();
-	bool columnControl();
-	bool rowControl();
-	bool squareControl();
-	void inputs(int number);
-	void showSolution();
+	void displayGame(); //Alperen
+	bool columnControl(); //Onur
+	bool rowControl(); //Mücahit
+	bool squareControl(); //Alperen
+	void inputs(int number); //Onur
+	void showSolution(); //Mücahit
 };
 
 
