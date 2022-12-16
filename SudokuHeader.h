@@ -74,7 +74,7 @@ public:
 	}
 	void displayGame(); //Alperen
 	bool columnControl(); //Onur
-	bool rowControl(int row, int tnumber) // Mücahit
+	bool rowControl(int row, int tnumber) //Mücahit
 	{
 		for (int i = 0; i < 9; i++)
 		{
@@ -88,7 +88,7 @@ public:
 	}
 	bool squareControl(); //Alperen
 	void inputs(int number); //Onur
-	void showSolution()
+	void showSolution() //Mücahit
 	{
 		for (int r = 0; r < 9; r++)
 		{
