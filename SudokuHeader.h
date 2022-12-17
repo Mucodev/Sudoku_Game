@@ -73,7 +73,15 @@ public:
 		(void)_getch();
 	}
 	void displayGame(); //Alperen
-	bool columnControl(); //Onur
+	bool columnControl(int column, int tnumber){
+        	for(int i = 0; i < 9; i++){
+            		if (tnumber == sudokuArray[i][column]){
+                		cout << "False" << endl;
+                		return false; 
+            		}
+        	}
+        	return true;
+    	} //Onur
 	bool rowControl(int row, int tnumber) //Mücahit
 	{
 		for (int i = 0; i < 9; i++)
