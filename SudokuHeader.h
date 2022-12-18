@@ -137,7 +137,7 @@ public:
 		{
 			if (r == 3)
 			{
-				cout << " | ";
+				cout << " _ ";
 			}
 
 			for (int c = 0; c < 9; c++)
