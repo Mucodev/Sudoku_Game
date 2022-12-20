@@ -189,12 +189,12 @@ public:
     }
 
     void inputs(int row, int column, int number)     //Onur
+    {
+	if(rowControl(row, number) && columnControl(column, number) && squareControl(row, column, number))
 	{
-		if(rowControl(row, number) && columnControl(column, number) && squareControl(row, column, number))
-		{
 			sudokuArray[row][column] = number;
-		}
 	}
+    }
     
     void showSolution()      // Mücahit
     {
