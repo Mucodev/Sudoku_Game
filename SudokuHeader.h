@@ -193,7 +193,7 @@ public:
     {
 	if(rowControl(row, number) && columnControl(column, number) && squareControl(row, column, number))
 	{
-			sudokuArray[row][column] = number;
+		sudokuArray[row][column] = number;
 	}
     }
     
