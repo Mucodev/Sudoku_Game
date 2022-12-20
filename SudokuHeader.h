@@ -142,158 +142,50 @@ public:
 
     bool squareControl(int row, int column, int tnumber) // Alperen
     {
+        int r, c;
+
         if (row < 3)
         {
-            if (column < 3)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        if (tnumber == sudokuArray[i][j])
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
-
-            else if (column < 6)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    for (int j = 3; j < 6; j++)
-                    {
-                        if (tnumber == sudokuArray[i][j])
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
-
-            else
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    for (int j = 6; j < 9; j++)
-                    {
-                        if (tnumber == sudokuArray[i][j])
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
+            r = 3;
         }
 
         else if (row < 6)
         {
-            if (column < 3)
-            {
-                for (int i = 3; i < 6; i++)
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        if (tnumber == sudokuArray[i][j])
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
-
-            else if (column < 6)
-            {
-                for (int i = 3; i < 6; i++)
-                {
-                    for (int j = 3; j < 6; j++)
-                    {
-                        if (tnumber == sudokuArray[i][j])
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
-
-            else
-            {
-                for (int i = 3; i < 6; i++)
-                {
-                    for (int j = 6; j < 9; j++)
-                    {
-                        if (tnumber == sudokuArray[i][j])
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
+            r = 6;
         }
 
-        else
+        else if (row < 9)
         {
-            if (column < 3)
+            r = 9;
+        }
+
+        if (column < 3)
+        {
+            c = 3;
+        }
+
+        else if (column < 6)
+        {
+            c = 6;
+        }
+
+        else if (column < 9)
+        {
+            c = 9;
+        }
+
+        for (int i = (r - 3); i < r; i++)
+        {
+            for (int j = (c - 3); j < c; j++)
             {
-                for (int i = 6; i < 9; i++)
+                if (tnumber == sudokuArray[i][j])
                 {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        if (tnumber == sudokuArray[i][j])
-                        {
-                            return false;
-                        }
-                    }
+                    return false;
                 }
-
-                return true;
-            }
-
-            else if (column < 6)
-            {
-                for (int i = 6; i < 9; i++)
-                {
-                    for (int j = 3; j < 6; j++)
-                    {
-                        if (tnumber == sudokuArray[i][j])
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
-
-            else
-            {
-                for (int i = 6; i < 9; i++)
-                {
-                    for (int j = 6; j < 9; j++)
-                    {
-                        if (tnumber == sudokuArray[i][j])
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
             }
         }
+
+        return true;
     }
 
     void inputs(int number); // Onur
