@@ -127,6 +127,7 @@ public:
         }
         return true;
     }
+
     bool rowControl(int row, int tnumber) // Mücahit
     {
         for (int i = 0; i < 9; i++)
