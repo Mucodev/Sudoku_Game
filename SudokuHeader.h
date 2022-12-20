@@ -115,7 +115,7 @@ public:
         }
     }
 
-    bool columnControl(int column, int tnumber)
+    bool columnControl(int column, int tnumber)   //Onur
     {
         for (int i = 0; i < 9; i++)
         {
@@ -126,7 +126,7 @@ public:
             }
         }
         return true;
-    }                                     // Onur
+    }
     bool rowControl(int row, int tnumber) // Mücahit
     {
         for (int i = 0; i < 9; i++)
@@ -188,7 +188,14 @@ public:
         return true;
     }
 
-    void inputs(int number); // Onur
+    void inputs(int row, int column, int number)     //Onur
+	{
+		if(rowControl(row, number) && columnControl(column, number) && squareControl(row, column, number))
+		{
+			sudokuArray[row][column] = number;
+		}
+	}
+    
     void showSolution()      // Mücahit
     {
         for (int r = 0; r < 9; r++)
@@ -211,4 +218,4 @@ public:
     }
 };
 
-#endif #
+#endif
