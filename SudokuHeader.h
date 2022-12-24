@@ -11,7 +11,7 @@ using namespace std;
 class SudokuGame
 {
 private:
-    int sudokuArray[9][9] =
+    int sudokuArray[9][9]/* =
     {
         {0, 0, 6, 5, 0, 8, 4, 0, 0},
         {5, 2, 0, 0, 0, 1, 0, 0, 0},
@@ -21,7 +21,7 @@ private:
         {0, 5, 0, 0, 9, 0, 6, 0, 0},
         {1, 3, 0, 0, 0, 0, 2, 5, 0},
         {0, 0, 0, 0, 0, 0, 0, 7, 4},
-        {0, 0, 5, 2, 0, 6, 3, 0, 0} };
+        {0, 0, 5, 2, 0, 6, 3, 0, 0} }*/;
     /*
     int[][] grid =
     {
@@ -72,6 +72,54 @@ public:
         cout << "Press any key to continue...";
         (void)_getch();
         cout << endl;
+    }
+
+    bool checkNum(int number)
+    {
+        for (int i = 1; i < 10; i++)
+        {
+            if (i == number)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void sudokuGenerator()
+    {
+        srand(time(NULL));
+        int count = 0;
+
+        while (count != 30)
+        {
+            int i = rand() % 9;
+            int j = rand() % 9;
+            int number = rand() % 9 + 1;
+
+            if (rowControl(i + 1, number))
+            {
+                if (columnControl(j + 1, number))
+                {
+                    if (squareControl(i, j, number))
+                    {
+                        sudokuArray[i][j] = number;
+                        count++;
+                    }
+                }
+            }
+        }
+
+        for (int row = 0; row < 9; row++)
+        {
+            for (int column = 0; column < 9; column++)
+            {
+                if (checkNum(sudokuArray[row][column]))
+                {
+                    sudokuArray[row][column] = 0;
+                }
+            }
+        }
     }
 
     void displayGame() // Alperen
