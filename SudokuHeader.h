@@ -5,6 +5,8 @@
 #include <vector>
 #include <iomanip>
 #include <conio.h>
+#include <time.h>
+#include <cstdlib>
 
 using namespace std;
 
