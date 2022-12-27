@@ -1,7 +1,6 @@
 #ifndef Sudoku
 #define Sudoku
 
-#include <bits/stdc++.h>
 #include <iostream>
 #include <vector>
 #include <iomanip>
@@ -14,17 +13,19 @@ using namespace std;
 class SudokuGame
 {
 private:
-    int sudokuArray[9][9]/* =
+    int sudokuArray[9][9] =
     {
-        {0, 0, 6, 5, 0, 8, 4, 0, 0},
-        {5, 2, 0, 0, 0, 1, 0, 0, 0},
-        {0, 7, 8, 0, 0, 0, 0, 0, 1},
-        {0, 0, 4, 0, 1, 0, 0, 8, 0},
-        {9, 0, 0, 8, 2, 3, 0, 0, 5},
-        {0, 5, 0, 0, 9, 0, 6, 0, 0},
-        {1, 3, 0, 0, 0, 0, 2, 5, 0},
-        {0, 0, 0, 0, 0, 0, 0, 7, 4},
-        {0, 0, 5, 2, 0, 6, 3, 0, 0} }*/;
+        {1,2,3,  4,5,6,  7,8,9},
+        {4,5,6,  7,8,9,  1,2,3},
+        {7,8,9,  1,2,3,  4,5,6},
+        {2,3,1,  5,6,4,  8,9,7},
+        {5,6,4,  8,9,7,  2,3,1},
+        {8,9,7,  2,3,1,  5,6,4},
+        {3,1,2,  6,4,5,  9,7,8},
+        {6,4,5,  9,7,8,  3,1,2},
+        {9,7,8,  3,1,2,  6,4,5}
+    };
+
     /*
     int[][] grid =
     {
@@ -63,220 +64,91 @@ private:
      {0, 0, 0, 8, 0, 0, 0, 0, 3},
     };
     */
-
-    int sudokuDiff[9][9];
 public:
     SudokuGame()
     {
         cout << setw(50) << "Welcome to Sudoku Game" << endl
-             << setw(40)
-             << "Rules" << endl
-             << endl
-             << setw(20) << "1. Use Numbers 1-9" << endl
-             << setw(59) << "2. Don't Repeat Any Numbers(each row, column and square) " << endl;
+            << setw(40)
+            << "Rules" << endl
+            << endl
+            << setw(20) << "1. Use Numbers 1-9" << endl
+            << setw(59) << "2. Don't Repeat Any Numbers(each row, column and square) " << endl;
         cout << "Press any key to continue...";
-        (void) _getch();
+        (void)_getch();
         cout << endl;
     }
 
-    /* bool checkNum(int number)
-     {
-         for (int i = 1; i < 10; i++)
-         {
-             if (i == number)
-             {
-                 return false;
-             }
-         }
-         return true;
-     }
-
-     void sudokuGenerator()
-     {
-         srand(time(NULL));
-         int count = 0;
-
-         while (count != 30)
-         {
-             int i = rand() % 9;
-             int j = rand() % 9;
-             int number = rand() % 9 + 1;
-
-             if (rowControl(i + 1, number))
-             {
-                 if (columnControl(j + 1, number))
-                 {
-                     if (squareControl(i, j, number))
-                     {
-                         sudokuArray[i][j] = number;
-                         count++;
-                     }
-                 }
-             }
-         }
-
-         for (int row = 0; row < 9; row++)
-         {
-             for (int column = 0; column < 9; column++)
-             {
-                 if (checkNum(sudokuArray[row][column]))
-                 {
-                     sudokuArray[row][column] = 0;
-                 }
-             }
-         }
-     }   muco generator    */
-
-    bool canPlace(int num, int row, int col)
+    bool checkNum(int number)
     {
-        // Check if the given number already exists in the row or column
-        for (int i = 0; i < 9; i++)
+        for (int i = 1; i < 10; i++)
         {
-            if (sudokuArray[row][i] == num || sudokuArray[i][col] == num)
+            if (i == number)
             {
                 return false;
             }
         }
-
-        // Check if the given number already exists in the 3x3 sub-grid
-        int startRow = row - row % 3;
-        int startCol = col - col % 3;
-        for (int i = startRow; i < startRow + 3; i++)
-        {
-            for (int j = startCol; j < startCol + 3; j++)
-            {
-                if (sudokuArray[i][j] == num)
-                {
-                    return false;
-                }
-            }
-        }
-
-        // The number can be placed at the given position
         return true;
     }
 
-    bool generateUtil(int row, int col)
+    void sudokuGenerator(int difficulty)
     {
-        if (col == 9)
-        {
-            col = 0;
-            row++;
-        }
-
-        if (row == 9)
-        {
-            return true;
-        }
-
-        if (sudokuArray[row][col] != 0)
-        {
-            return generateUtil(row, col + 1);
-        }
-
-        for (int num = 1; num <= 9; num++)
-        {
-            if (canPlace(num, row, col))
-            {
-                sudokuArray[row][col] = num;
-                if (generateUtil(row, col + 1))
-                {
-                    return true;
-                }
-
-                sudokuArray[row][col] = 0;
-            }
-        }
-
-        // No solution found
-        return false;
-    }
-
-    void generate()
-    {
-        memset(sudokuArray, 0, sizeof sudokuArray);
-
-        generateUtil(0, 0);
-    }
-
-    void sudokuDifficulty(int num)
-    {
+        srand(time(NULL));
         int count = 0;
 
-        for (int i = 0; i < 9; ++i)
+        for (int a = 0; a < 9; a++)
         {
-            for (int j = 0; j < 9; ++j)
-            {
-                sudokuDiff[i][j] = sudokuArray[i][j];
-            }
-        }
+            int randn = rand() % 9 + 1;
 
-        if (num == 1)
-        {
-            while (count != 81 - 36)
+            for (int i = 0; i < 9; i++)
             {
-                int i = rand() % 9;
-                int j = rand() % 9;
-
-                if (sudokuDiff[i][j] != 0)
+                for (int j = 0; j < 9; j++)
                 {
-                    sudokuDiff[i][j] = 0;
-                    count++;
+                    if (sudokuArray[i][j] == a + 1)
+                    {
+                        sudokuArray[i][j] = randn;
+                    }
+                    else if (sudokuArray[i][j] == randn)
+                    {
+                        sudokuArray[i][j] = a + 1;
+                    }
                 }
             }
         }
 
-        else if (num == 2)
-        {
-            while (count != 81 - 30)
-            {
-                int i = rand() % 9;
-                int j = rand() % 9;
+        int flag;
 
-                if (sudokuDiff[i][j] != 0)
-                {
-                    sudokuDiff[i][j] = 0;
-                    count++;
-                }
+        if (difficulty == 1) //Easy
+        {
+            flag = 36;
+        }
+        else if (difficulty == 2)//Medium
+        {
+            flag = 30;
+        }
+        else if (difficulty == 3)
+        {
+            flag == 25;
+        }
+
+        while (count != 81 - flag)
+        {
+            int row = rand() % 9;
+            int col = rand() % 9;
+
+            if (sudokuArray[row][col] != 0)
+            {
+                sudokuArray[row][col] = 0;
+                count++;
             }
         }
 
-        if (num == 3)
-        {
-            while (count != 81 - 23)
-            {
-                int i = rand() % 9;
-                int j = rand() % 9;
-
-                if (sudokuDiff[i][j] != 0)
-                {
-                    sudokuDiff[i][j] = 0;
-                    count++;
-                }
-            }
-        }
-
-        if (num == 4)
-        {
-            while (count != 81 - 17)
-            {
-                int i = rand() % 9;
-                int j = rand() % 9;
-
-                if (sudokuDiff[i][j] != 0)
-                {
-                    sudokuDiff[i][j] = 0;
-                    count++;
-                }
-            }
-        }
 
     }
 
     void displayGame() // Alperen
     {
         cout << "#   1 2 3   4 5 6   7 8 9" << endl
-             << "+ | - - - + - - - + - - -" << endl;
+            << "+ | - - - + - - - + - - -" << endl;
 
         for (int i = 0; i < 9; i++)
         {
@@ -313,52 +185,12 @@ public:
         }
     }
 
-    void displayGame2() // Alperen
-    {
-        cout << "#   1 2 3   4 5 6   7 8 9" << endl
-             << "+ | - - - + - - - + - - -" << endl;
-
-        for (int i = 0; i < 9; i++)
-        {
-            cout << (i + 1) << " | ";
-
-            for (int j = 0; j < 9; j++)
-            {
-
-                if (sudokuDiff[i][j] == 0)
-                {
-                    cout << ". ";
-                }
-
-                else if (sudokuDiff[i][j] != 0)
-                {
-                    cout << sudokuDiff[i][j] << " ";
-                }
-
-                if (j == 2 || j == 5)
-                {
-                    cout << "| ";
-                }
-
-                else if (j == 8)
-                {
-                    cout << endl;
-                }
-            }
-
-            if (i == 2 || i == 5)
-            {
-                cout << "  | - - - + - - - + - - -" << endl;
-            }
-        }
-    }
-
     bool columnControl(int column, int tnumber)   //Onur
     {
         for (int i = 0; i < 9; i++)
         {
 
-            if (sudokuArray[i][column] == tnumber)
+            if (sudokuArray[i][column - 1] == tnumber)
             {
                 return false;
             }
@@ -370,7 +202,7 @@ public:
     {
         for (int i = 0; i < 9; i++)
         {
-            if (tnumber == sudokuArray[row][i])
+            if (tnumber == sudokuArray[row - 1][i])
             {
                 return false;
             }
@@ -380,13 +212,41 @@ public:
 
     bool squareControl(int row, int column, int tnumber) // Alperen
     {
+        int r, c;
 
-        int Row = row - row % 3;
-        int Col = column - column % 3;
-
-        for (int i = Row; i < Row + 3; i++)
+        if (row < 3)
         {
-            for (int j = column; j < column + 3; j++)
+            r = 3;
+        }
+
+        else if (row < 6)
+        {
+            r = 6;
+        }
+
+        else if (row < 9)
+        {
+            r = 9;
+        }
+
+        if (column < 3)
+        {
+            c = 3;
+        }
+
+        else if (column < 6)
+        {
+            c = 6;
+        }
+
+        else if (column < 9)
+        {
+            c = 9;
+        }
+
+        for (int i = (r - 3); i < r; i++)
+        {
+            for (int j = (c - 3); j < c; j++)
             {
                 if (tnumber == sudokuArray[i][j])
                 {
@@ -414,22 +274,41 @@ public:
 
     void showSolution()      // Mücahit
     {
-        for (int r = 0; r < 9; r++)
+        cout << "#   1 2 3   4 5 6   7 8 9" << endl
+            << "+ | - - - + - - - + - - -" << endl;
+
+        for (int i = 0; i < 9; i++)
         {
-            if (r == 3)
+            cout << (i + 1) << " | ";
+
+            for (int j = 0; j < 9; j++)
             {
-                cout << " _ ";
+
+                if (sudokuArray[i][j] == 0)
+                {
+                    cout << ". ";
+                }
+
+                else if (sudokuArray[i][j] != 0)
+                {
+                    cout << sudokuArray[i][j] << " ";
+                }
+
+                if (j == 2 || j == 5)
+                {
+                    cout << "| ";
+                }
+
+                else if (j == 8)
+                {
+                    cout << endl;
+                }
             }
 
-            for (int c = 0; c < 9; c++)
+            if (i == 2 || i == 5)
             {
-                if (c == 3)
-                {
-                    cout << " | ";
-                }
-                cout << sudokuArray[r][c] << " ";
+                cout << "  | - - - + - - - + - - -" << endl;
             }
-            cout << endl;
         }
     }
 };
