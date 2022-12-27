@@ -14,29 +14,29 @@ class SudokuGame
 {
 private:
     int sudokuArray[9][9] =
-    {
-        {1,2,3,  4,5,6,  7,8,9},
-        {4,5,6,  7,8,9,  1,2,3},
-        {7,8,9,  1,2,3,  4,5,6},
-        {2,3,1,  5,6,4,  8,9,7},
-        {5,6,4,  8,9,7,  2,3,1},
-        {8,9,7,  2,3,1,  5,6,4},
-        {3,1,2,  6,4,5,  9,7,8},
-        {6,4,5,  9,7,8,  3,1,2},
-        {9,7,8,  3,1,2,  6,4,5}
-    };
+            {
+                    {1,2,3,  4,5,6,  7,8,9},
+                    {4,5,6,  7,8,9,  1,2,3},
+                    {7,8,9,  1,2,3,  4,5,6},
+                    {2,3,1,  5,6,4,  8,9,7},
+                    {5,6,4,  8,9,7,  2,3,1},
+                    {8,9,7,  2,3,1,  5,6,4},
+                    {3,1,2,  6,4,5,  9,7,8},
+                    {6,4,5,  9,7,8,  3,1,2},
+                    {9,7,8,  3,1,2,  6,4,5}
+            };
 
     int sudokuSol[9][9];
 public:
     SudokuGame()
     {
         cout << setw(50) << "Welcome to Sudoku Game" << endl
-            << setw(40)
-            << "Rules" << endl
-            << endl
-            << setw(20) << "1. Use Numbers 1-9" << endl
-            << setw(59) << "2. Don't Repeat Any Numbers(each row, column and square) " << endl;
-        cout << "Press any key to continue...";
+             << setw(40)
+             << "Rules" << endl
+             << endl
+             << setw(20) << "1. Use Numbers 1-9" << endl
+             << setw(59) << "2. Don't Repeat Any Numbers(each row, column and square) " << endl;
+        cout << "Press enter to continue...";
         (void)_getch();
         cout << endl;
     }
@@ -86,7 +86,7 @@ public:
         }
         else if (difficulty == 3)
         {
-            flag == 25;
+            flag = 25;
         }
 
         while (count != 81 - flag)
@@ -107,7 +107,7 @@ public:
     void displayGame() // Alperen
     {
         cout << "#   1 2 3   4 5 6   7 8 9" << endl
-            << "+ | - - - + - - - + - - -" << endl;
+             << "+ | - - - + - - - + - - -" << endl;
 
         for (int i = 0; i < 9; i++)
         {
@@ -217,7 +217,7 @@ public:
         return true;
     }
 
-    void inputs(int row, int column, int number)     //Onur
+    bool inputs(int row, int column, int number)     //Onur
     {
         if (rowControl(row, number))
         {
@@ -226,15 +226,18 @@ public:
                 if (squareControl(row, column, number))
                 {
                     sudokuArray[row - 1][column - 1] = number;
+                    return true;
                 }
             }
         }
+
+        return false;
     }
 
     void showSolution()      // Mücahit
     {
         cout << "#   1 2 3   4 5 6   7 8 9" << endl
-            << "+ | - - - + - - - + - - -" << endl;
+             << "+ | - - - + - - - + - - -" << endl;
 
         for (int row = 0; row < 9; row++)
         {
