@@ -26,44 +26,7 @@ private:
         {9,7,8,  3,1,2,  6,4,5}
     };
 
-    /*
-    int[][] grid =
-    {
-     {5, 3, 0, 0, 7, 0, 0, 0, 0},
-     {6, 0, 0, 1, 9, 5, 0, 0, 0},
-     {0, 9, 8, 0, 0, 0, 0, 6, 0},
-     {8, 0, 0, 0, 6, 0, 0, 0, 3},
-     {4, 0, 0, 8, 0, 3, 0, 0, 1},
-     {7, 0, 0, 0, 2, 0, 0, 0, 6},
-     {0, 6, 0, 0, 0, 0, 2, 8, 0},
-     {0, 0, 0, 4, 1, 9, 0, 0, 5},
-     {0, 0, 0, 0, 8, 0, 0, 7, 9},
-    };
-    int[][] grid =
-    {
-     {0, 6, 0, 1, 0, 4, 0, 5, 0},
-     {0, 0, 8, 3, 0, 5, 6, 0, 0},
-     {2, 0, 0, 0, 0, 0, 0, 0, 1},
-     {8, 0, 0, 4, 0, 7, 0, 0, 6},
-     {0, 0, 6, 0, 0, 0, 3, 0, 0},
-     {7, 0, 0, 9, 0, 1, 0, 0, 4},
-     {5, 0, 0, 0, 0, 0, 0, 0, 2},
-     {0, 0, 7, 2, 0, 6, 9, 0, 0},
-     {0, 4, 0, 5, 0, 8, 0, 7, 0},
-    };
-    int[][] grid =
-    {
-     {8, 0, 0, 0, 0, 7, 0, 0, 0},
-     {0, 6, 2, 0, 4, 0, 0, 0, 0},
-     {0, 3, 0, 0, 0, 5, 7, 0, 0},
-     {9, 0, 0, 0, 0, 2, 0, 4, 0},
-     {5, 0, 0, 4, 0, 1, 0, 0, 9},
-     {0, 4, 0, 9, 0, 0, 0, 0, 7},
-     {0, 0, 1, 3, 0, 0, 0, 7, 0},
-     {0, 0, 0, 0, 5, 0, 2, 8, 0},
-     {0, 0, 0, 8, 0, 0, 0, 0, 3},
-    };
-    */
+    int sudokuSol[9][9];
 public:
     SudokuGame()
     {
@@ -76,18 +39,6 @@ public:
         cout << "Press any key to continue...";
         (void)_getch();
         cout << endl;
-    }
-
-    bool checkNum(int number)
-    {
-        for (int i = 1; i < 10; i++)
-        {
-            if (i == number)
-            {
-                return false;
-            }
-        }
-        return true;
     }
 
     void sudokuGenerator(int difficulty)
@@ -112,6 +63,14 @@ public:
                         sudokuArray[i][j] = a + 1;
                     }
                 }
+            }
+        }
+
+        for (int row = 0; row < 9; row++)
+        {
+            for (int column = 0; column < 9; column++)
+            {
+                sudokuSol[row][column] = sudokuArray[row][column];
             }
         }
 
@@ -277,35 +236,27 @@ public:
         cout << "#   1 2 3   4 5 6   7 8 9" << endl
             << "+ | - - - + - - - + - - -" << endl;
 
-        for (int i = 0; i < 9; i++)
+        for (int row = 0; row < 9; row++)
         {
-            cout << (i + 1) << " | ";
+            cout << (row + 1) << " | ";
 
-            for (int j = 0; j < 9; j++)
+            for (int column = 0; column < 9; column++)
             {
 
-                if (sudokuArray[i][j] == 0)
-                {
-                    cout << ". ";
-                }
+                cout << sudokuSol[row][column] << " ";
 
-                else if (sudokuArray[i][j] != 0)
-                {
-                    cout << sudokuArray[i][j] << " ";
-                }
-
-                if (j == 2 || j == 5)
+                if (column == 2 || column == 5)
                 {
                     cout << "| ";
                 }
 
-                else if (j == 8)
+                else if (column == 8)
                 {
                     cout << endl;
                 }
             }
 
-            if (i == 2 || i == 5)
+            if (row == 2 || row == 5)
             {
                 cout << "  | - - - + - - - + - - -" << endl;
             }
