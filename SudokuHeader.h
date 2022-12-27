@@ -173,32 +173,32 @@ public:
     {
         int r, c;
 
-        if (row < 3)
+        if (row <= 3)
         {
             r = 3;
         }
 
-        else if (row < 6)
+        else if (row <= 6)
         {
             r = 6;
         }
 
-        else if (row < 9)
+        else if (row <= 9)
         {
             r = 9;
         }
 
-        if (column < 3)
+        if (column <= 3)
         {
             c = 3;
         }
 
-        else if (column < 6)
+        else if (column <= 6)
         {
             c = 6;
         }
 
-        else if (column < 9)
+        else if (column <= 9)
         {
             c = 9;
         }
