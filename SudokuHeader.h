@@ -34,9 +34,10 @@ public:
              << setw(40)
              << "Rules" << endl
              << endl
-             << setw(20) << "1. Use Numbers 1-9" << endl
-             << setw(59) << "2. Don't Repeat Any Numbers(each row, column and square) " << endl;
-        cout << "Press enter to continue...";
+             << setw(74) << "1. Input Numbers 1-9 in 'row - column - number' order" << endl
+             << setw(78) << "2. Don't Repeat Any Numbers(each row, column and square) " << endl
+             << setw(56) << "3. Input 0 only if you want to exit" << endl << endl;
+        cout << "Press any key to continue...";
         (void)_getch();
         cout << endl;
     }
@@ -106,7 +107,8 @@ public:
 
     void displayGame() // Alperen
     {
-        cout << "#   1 2 3   4 5 6   7 8 9" << endl
+        cout << endl
+             << "#   1 2 3   4 5 6   7 8 9" << endl
              << "+ | - - - + - - - + - - -" << endl;
 
         for (int i = 0; i < 9; i++)
