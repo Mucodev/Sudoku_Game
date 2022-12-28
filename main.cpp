@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include "SudokuHeader.h"
 
 using namespace std;
@@ -6,11 +7,14 @@ using namespace std;
 int main()
 {
     SudokuGame a;
+    Player p;
     int difficulty,
             r,
             c,
             n,
-            count;
+            count,
+            score;
+    string name;
 
     choose:
     cout << endl
@@ -52,6 +56,8 @@ int main()
         goto choose;
     }
 
+    auto start = chrono::high_resolution_clock::now();  // Starting Time
+
     while (count != 0)
     {
         a.displayGame();
@@ -79,15 +85,30 @@ int main()
 
     if (count == 0)
     {
-        cout << endl << "Nice job!" << endl << endl;
+        auto end = chrono::high_resolution_clock::now();  // Ending Time
+        cout << endl << "Nice job!" << endl;
+        cout << endl << "Please enter player name: ";
+        cin >> name;
+        cout << endl << endl;
+        
+        score = p.ScoreCalculator(chrono::duration_cast<chrono::seconds>(end - start).count(), difficulty);
+        p.setScore(score, difficulty, name);
     }
 
     else
     {
-        cout << endl << "You gave up :(" << endl << endl;
+        cout << endl << "You gave up :(" << endl;
+        cout << endl << "Please enter player name: ";
+        cin >> name;
+        cout << endl << endl;
+
+        score = p.ScoreCalculator(0, 0);
+        p.setScore(score, difficulty, name);
     }
 
     a.showSolution();
+    cout << endl << endl << endl;
+    p.showScore();
 
     return 0;
 }
