@@ -17,124 +17,18 @@ class SudokuGame
 private:
     int sudokuArray[9][9] =
             {
-                    {1,2,3,  4,5,6,  7,8,9},
-                    {4,5,6,  7,8,9,  1,2,3},
-                    {7,8,9,  1,2,3,  4,5,6},
-                    {2,3,1,  5,6,4,  8,9,7},
-                    {5,6,4,  8,9,7,  2,3,1},
-                    {8,9,7,  2,3,1,  5,6,4},
-                    {3,1,2,  6,4,5,  9,7,8},
-                    {6,4,5,  9,7,8,  3,1,2},
-                    {9,7,8,  3,1,2,  6,4,5}
+                    {1, 2, 3, 4, 5, 6, 7, 8, 9},
+                    {4, 5, 6, 7, 8, 9, 1, 2, 3},
+                    {7, 8, 9, 1, 2, 3, 4, 5, 6},
+                    {2, 3, 1, 5, 6, 4, 8, 9, 7},
+                    {5, 6, 4, 8, 9, 7, 2, 3, 1},
+                    {8, 9, 7, 2, 3, 1, 5, 6, 4},
+                    {3, 1, 2, 6, 4, 5, 9, 7, 8},
+                    {6, 4, 5, 9, 7, 8, 3, 1, 2},
+                    {9, 7, 8, 3, 1, 2, 6, 4, 5}
             };
 
     int sudokuSol[9][9];
-protected:
-    int score;
-public:
-    void sudokuGenerator(int difficulty)
-    {
-        srand(time(NULL));
-        int count = 0;
-
-        for (int a = 0; a < 9; a++)
-        {
-            int randn = rand() % 9 + 1;
-
-            for (int i = 0; i < 9; i++)
-            {
-                for (int j = 0; j < 9; j++)
-                {
-                    if (sudokuArray[i][j] == a + 1)
-                    {
-                        sudokuArray[i][j] = randn;
-                    }
-                    else if (sudokuArray[i][j] == randn)
-                    {
-                        sudokuArray[i][j] = a + 1;
-                    }
-                }
-            }
-        }
-
-        for (int row = 0; row < 9; row++)
-        {
-            for (int column = 0; column < 9; column++)
-            {
-                sudokuSol[row][column] = sudokuArray[row][column];
-            }
-        }
-
-        int flag;
-
-        if (difficulty == 1) //Easy
-        {
-            flag = 36;
-        }
-        else if (difficulty == 2)//Medium
-        {
-            flag = 30;
-        }
-        else if (difficulty == 3)
-        {
-            flag = 25;
-        }
-
-        while (count != 81 - flag)
-        {
-            int row = rand() % 9;
-            int col = rand() % 9;
-
-            if (sudokuArray[row][col] != 0)
-            {
-                sudokuArray[row][col] = 0;
-                count++;
-            }
-        }
-
-
-    }
-
-    void displayGame() // Alperen
-    {
-        cout << endl
-             << "#   1 2 3   4 5 6   7 8 9" << endl
-             << "+ | - - - + - - - + - - -" << endl;
-
-        for (int i = 0; i < 9; i++)
-        {
-            cout << (i + 1) << " | ";
-
-            for (int j = 0; j < 9; j++)
-            {
-
-                if (sudokuArray[i][j] == 0)
-                {
-                    cout << ". ";
-                }
-
-                else if (sudokuArray[i][j] != 0)
-                {
-                    cout << sudokuArray[i][j] << " ";
-                }
-
-                if (j == 2 || j == 5)
-                {
-                    cout << "| ";
-                }
-
-                else if (j == 8)
-                {
-                    cout << endl;
-                }
-            }
-
-            if (i == 2 || i == 5)
-            {
-                cout << "  | - - - + - - - + - - -" << endl;
-            }
-        }
-    }
 
     bool columnControl(int column, int tnumber)   //Onur
     {
@@ -209,6 +103,88 @@ public:
         return true;
     }
 
+protected:
+    int score;
+
+public:
+
+    SudokuGame()
+    {
+        cout << setw(50) << "Welcome to Sudoku Game" << endl
+             << setw(40)
+             << "Rules" << endl
+             << endl
+             << setw(74) << "1. Input Numbers 1-9 in 'row - column - number' order" << endl
+             << setw(78) << "2. Don't Repeat Any Numbers(each row, column and square) " << endl
+             << setw(56) << "3. Input 0 only if you want to exit" << endl << endl;
+        cout << "Press any key to continue...";
+        (void) _getch();
+        cout << endl;
+    }
+
+    SudokuGame(int difficulty)
+    {
+        srand(time(NULL));
+        int count = 0;
+
+        for (int a = 0; a < 9; a++)
+        {
+            int randn = rand() % 9 + 1;
+
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (sudokuArray[i][j] == a + 1)
+                    {
+                        sudokuArray[i][j] = randn;
+                    }
+                    else if (sudokuArray[i][j] == randn)
+                    {
+                        sudokuArray[i][j] = a + 1;
+                    }
+                }
+            }
+        }
+
+        for (int row = 0; row < 9; row++)
+        {
+            for (int column = 0; column < 9; column++)
+            {
+                sudokuSol[row][column] = sudokuArray[row][column];
+            }
+        }
+
+        int flag;
+
+        if (difficulty == 1) //Easy
+        {
+            flag = 36;
+        }
+        else if (difficulty == 2)//Medium
+        {
+            flag = 30;
+        }
+        else if (difficulty == 3)
+        {
+            flag = 25;
+        }
+
+        while (count != 81 - flag)
+        {
+            int row = rand() % 9;
+            int col = rand() % 9;
+
+            if (sudokuArray[row][col] != 0)
+            {
+                sudokuArray[row][col] = 0;
+                count++;
+            }
+        }
+
+
+    }
+
     bool inputs(int row, int column, int number)     //Onur
     {
         if (rowControl(row, number))
@@ -217,8 +193,11 @@ public:
             {
                 if (squareControl(row, column, number))
                 {
-                    sudokuArray[row - 1][column - 1] = number;
-                    return true;
+                    if (sudokuArray[row - 1][column - 1]==0)
+                    {
+                        sudokuArray[row - 1][column - 1] = number;
+                        return true;
+                    }
                 }
             }
         }
@@ -257,26 +236,57 @@ public:
             }
         }
     }
+
+    friend ostream &operator<<(ostream &output,SudokuGame &obj)
+    {
+        output << endl
+             << "#   1 2 3   4 5 6   7 8 9" << endl
+             << "+ | - - - + - - - + - - -" << endl;
+
+        for (int i = 0; i < 9; i++)
+        {
+            output << (i + 1) << " | ";
+
+            for (int j = 0; j < 9; j++)
+            {
+
+                if (obj.sudokuArray[i][j] == 0)
+                {
+                    output << ". ";
+                }
+
+                else if (obj.sudokuArray[i][j] != 0)
+                {
+                    output << obj.sudokuArray[i][j] << " ";
+                }
+
+                if (j == 2 || j == 5)
+                {
+                    output << "| ";
+                }
+
+                else if (j == 8)
+                {
+                    output << endl;
+                }
+            }
+
+            if (i == 2 || i == 5)
+            {
+                output << "  | - - - + - - - + - - -" << endl;
+            }
+        }
+    }
 };
 
-
-class Player: public SudokuGame
+class Player : public SudokuGame
 {
 public:
     Player()
     {
-        cout << setw(50) << "Welcome to Sudoku Game" << endl
-             << setw(40)
-             << "Rules" << endl
-             << endl
-             << setw(74) << "1. Input Numbers 1-9 in 'row - column - number' order" << endl
-             << setw(78) << "2. Don't Repeat Any Numbers(each row, column and square) " << endl
-             << setw(56) << "3. Input 0 only if you want to exit" << endl << endl;
-        cout << "Press any key to continue...";
-        (void)_getch();
-        cout << endl;
+
     }
-    
+
     fstream file;
     string fname = "scoreboard";
 
@@ -333,12 +343,12 @@ public:
         cout << "---------------------------------------" << endl;
 
         string line;
-	while(!file.eof())
+        while (!file.eof())
         {
-		getline(file, line);
-		cout << line << endl;
-	}
-        
+            getline(file, line);
+            cout << line << endl;
+        }
+
         file.close();
     }
 };

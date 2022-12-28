@@ -6,8 +6,9 @@ using namespace std;
 
 int main()
 {
-    SudokuGame a;
+
     Player p;
+
     int difficulty,
             r,
             c,
@@ -29,19 +30,16 @@ int main()
     {
         if (difficulty == 1)
         {
-            a.sudokuGenerator(difficulty);
             count = 81 - 36;
         }
 
         else if (difficulty == 2)
         {
-            a.sudokuGenerator(difficulty);
             count = 81 - 30;
         }
 
         else if (difficulty == 3)
         {
-            a.sudokuGenerator(difficulty);
             count = 81 - 25;
         }
 
@@ -56,13 +54,15 @@ int main()
         goto choose;
     }
 
+    SudokuGame a(difficulty);
+
     auto start = chrono::high_resolution_clock::now();  // Starting Time
 
     while (count != 0)
     {
-        a.displayGame();
+        cout<<a;
 
-        cout << endl << "Enter your input to fill the Sudoku: ";
+        cout << endl << "Enter your input to fill the Sudoku(Row, Column, Number)(0 to give up): ";
         cin >> r;
         
         if (r == 0)
@@ -88,7 +88,7 @@ int main()
         auto end = chrono::high_resolution_clock::now();  // Ending Time
         cout << endl << "Nice job!" << endl;
         cout << endl << "Please enter player name: ";
-        cin >> name;
+        getline(cin,name);
         cout << endl << endl;
         
         score = p.ScoreCalculator(chrono::duration_cast<chrono::seconds>(end - start).count(), difficulty);
