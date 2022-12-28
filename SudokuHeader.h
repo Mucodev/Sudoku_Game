@@ -7,6 +7,8 @@
 #include <conio.h>
 #include <time.h>
 #include <cstdlib>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -27,21 +29,9 @@ private:
             };
 
     int sudokuSol[9][9];
+protected:
+    int score;
 public:
-    SudokuGame()
-    {
-        cout << setw(50) << "Welcome to Sudoku Game" << endl
-             << setw(40)
-             << "Rules" << endl
-             << endl
-             << setw(74) << "1. Input Numbers 1-9 in 'row - column - number' order" << endl
-             << setw(78) << "2. Don't Repeat Any Numbers(each row, column and square) " << endl
-             << setw(56) << "3. Input 0 only if you want to exit" << endl << endl;
-        cout << "Press any key to continue...";
-        (void)_getch();
-        cout << endl;
-    }
-
     void sudokuGenerator(int difficulty)
     {
         srand(time(NULL));
@@ -266,6 +256,89 @@ public:
                 cout << "  | - - - + - - - + - - -" << endl;
             }
         }
+    }
+};
+
+
+class Player: public SudokuGame
+{
+public:
+    Player()
+    {
+        cout << setw(50) << "Welcome to Sudoku Game" << endl
+             << setw(40)
+             << "Rules" << endl
+             << endl
+             << setw(74) << "1. Input Numbers 1-9 in 'row - column - number' order" << endl
+             << setw(78) << "2. Don't Repeat Any Numbers(each row, column and square) " << endl
+             << setw(56) << "3. Input 0 only if you want to exit" << endl << endl;
+        cout << "Press any key to continue...";
+        (void)_getch();
+        cout << endl;
+    }
+    
+    fstream file;
+    string fname = "scoreboard";
+
+    int ScoreCalculator(int time, int difficulty)
+    {
+        if (difficulty == 1)
+        {
+            score = (6000 - time) * 1;
+        }
+
+        else if (difficulty == 2)
+        {
+            int score = (6000 - time) * 2.5;
+        }
+
+        else if (difficulty == 3)
+        {
+            score = (6000 - time) * 5;
+        }
+
+        else if (difficulty == 0)
+        {
+            score = 0;
+        }
+
+        return score;
+    }
+
+    void setScore(int score, int difficulty, string name)
+    {
+        file.open(fname, ios::app);
+        if (difficulty == 1)
+        {
+            file << left << setw(15) << name << left << setw(10) << score << left << setw(10) << "(Easy)" << endl;
+        }
+
+        else if (difficulty == 2)
+        {
+            file << left << setw(15) << name << left << setw(10) << score << left << setw(10) << "(Medium)" << endl;
+        }
+
+        else if (difficulty == 3)
+        {
+            file << left << setw(15) << name << left << setw(10) << score << left << setw(10) << "(Hard)" << endl;
+        }
+        file.close();
+    }
+
+    void showScore(void)
+    {
+        file.open(fname, ios::in);
+        cout << "---------------------------------------" << endl;
+        cout << setw(25) << "Score Board" << endl;
+        cout << "---------------------------------------" << endl;
+
+        string line;
+		while(!file.eof()){
+			getline(file, line);
+			cout << line << endl;
+		}
+
+        file.close();
     }
 };
 
