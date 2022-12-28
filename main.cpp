@@ -1,4 +1,4 @@
-#include <iostream>  // keke
+#include <iostream>
 #include "SudokuHeader.h"
 
 using namespace std;
@@ -12,15 +12,14 @@ int main()
             n,
             count;
 
-    char choice;
-
     choose:
-    cout << "Choose Difficulty" << endl
-         << "1- Easy" << endl
-         << "2- Medium" << endl
-         << "3- Hard" << endl;
+    cout << endl
+         << setw(47) << "Choose Difficulty" << endl
+         << setw(42) << "1- Easy" << endl
+         << setw(44) << "2- Medium" << endl
+         << setw(42) << "3- Hard" << endl
+         << setw(38) <<"-> ";
     cin >> difficulty;
-
 
     try
     {
@@ -58,19 +57,23 @@ int main()
         a.displayGame();
 
         cout << endl << "Enter your input to fill the Sudoku: ";
-        cin >> r >> c >> n;
+        cin >> r;
+        
+        if (r == 0)
+        {
+            break;
+        }
+
+        cin >> c >> n;
 
         if (a.inputs(r, c, n))
         {
             count--;
         }
 
-        cout << endl << "Do you want to continue (Y/N): ";
-        cin >> choice;
-
-        if (choice == 'N')
+        else
         {
-            break;
+            cout << endl << "You entered wrong number!" << endl;
         }
     }
 
