@@ -22,7 +22,7 @@ int main()
          << setw(42) << "1- Easy" << endl
          << setw(44) << "2- Medium" << endl
          << setw(42) << "3- Hard" << endl
-         << setw(38) <<"-> ";
+         << setw(38) << "-> ";
     cin >> difficulty;
 
     try
@@ -59,11 +59,11 @@ int main()
 
     while (count != 0)
     {
-        cout<<a;
+        cout << a;
 
         cout << endl << "Enter your input to fill the Sudoku(Row, Column, Number)(0 to give up): ";
         cin >> r;
-        
+
         if (r == 0)
         {
             break;
@@ -87,9 +87,10 @@ int main()
         auto end = chrono::high_resolution_clock::now();  // Ending Time
         cout << endl << "Nice job!" << endl;
         cout << endl << "Please enter player name: ";
-        getline(cin,name);
+        cin.ignore();
+        cin >> name;
         cout << endl << endl;
-        
+
         score = p.ScoreCalculator(chrono::duration_cast<chrono::seconds>(end - start).count(), difficulty);
         p.setScore(score, difficulty, name);
     }

@@ -28,7 +28,8 @@ private:
                     {9, 7, 8, 3, 1, 2, 6, 4, 5}
             };
 
-    int sudokuSol[9][9];
+    int sudokuSol[9][9],
+            sudokuDel[9][9];
 
     bool columnControl(int column, int tnumber)   //Onur
     {
@@ -147,13 +148,7 @@ public:
             }
         }
 
-        for (int row = 0; row < 9; row++)
-        {
-            for (int column = 0; column < 9; column++)
-            {
-                sudokuSol[row][column] = sudokuArray[row][column];
-            }
-        }
+        sudokuCopy(sudokuSol, sudokuArray);
 
         int flag;
 
@@ -182,38 +177,39 @@ public:
             }
         }
 
-
+        sudokuCopy(sudokuDel, sudokuArray);
     }
 
-    bool isExist(int row,int column)
+    void nDelete(int row, int column)
     {
-        for (int i = 1; i <= 9; ++i)
+        if (sudokuDel[row - 1][column - 1] != sudokuArray[row - 1][column - 1] && sudokuArray[row - 1][column - 1] != 0)
         {
-            if(sudokuArray[row - 1][column - 1]==i)
-            {
-                return false;
-            }
+            sudokuArray[row - 1][column - 1] = 0;
         }
-
-        return true;
     }
 
     bool inputs(int row, int column, int number)     //Onur
     {
-        if (rowControl(row, number))
+        if (number == 0)
+        {
+            nDelete(row, column);
+            return true;
+        }
+
+        else if (rowControl(row, number))
+        {
+            if (columnControl(column, number))
             {
-                if (columnControl(column, number))
+                if (squareControl(row, column, number))
                 {
-                    if (squareControl(row, column, number))
+                    if (sudokuArray[row - 1][column - 1] == 0)
                     {
-                        if (sudokuArray[row - 1][column - 1]==0)
-                        {
-                            sudokuArray[row - 1][column - 1] = number;
-                            return true;
-                        }
+                        sudokuArray[row - 1][column - 1] = number;
+                        return true;
                     }
                 }
             }
+        }
 
         return false;
     }
@@ -250,11 +246,22 @@ public:
         }
     }
 
-    friend ostream &operator<<(ostream &output,SudokuGame &obj)
+    void sudokuCopy(int first[9][9], int second[9][9])
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+                first[i][j] = second[i][j];
+            }
+        }
+    }
+
+    friend ostream &operator<<(ostream &output, SudokuGame &obj)
     {
         output << endl
-             << "#   1 2 3   4 5 6   7 8 9" << endl
-             << "+ | - - - + - - - + - - -" << endl;
+               << "#   1 2 3   4 5 6   7 8 9" << endl
+               << "+ | - - - + - - - + - - -" << endl;
 
         for (int i = 0; i < 9; i++)
         {
