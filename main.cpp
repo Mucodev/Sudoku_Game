@@ -61,7 +61,7 @@ int main()
     {
         cout << a;
 
-        cout << endl << "Enter your input to fill the Sudoku(Row, Column, Number)(0 to give up): ";
+        cout << endl << "Enter your input to fill the Sudoku(Row, Column, Number)(0 to give up)(to delete number must be 0): ";
         cin >> r;
 
         if (r == 0)
