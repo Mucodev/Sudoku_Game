@@ -185,22 +185,35 @@ public:
 
     }
 
+    bool isExist(int row,int column)
+    {
+        for (int i = 1; i <= 9; ++i)
+        {
+            if(sudokuArray[row - 1][column - 1]==i)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     bool inputs(int row, int column, int number)     //Onur
     {
         if (rowControl(row, number))
-        {
-            if (columnControl(column, number))
             {
-                if (squareControl(row, column, number))
+                if (columnControl(column, number))
                 {
-                    if (sudokuArray[row - 1][column - 1]==0)
+                    if (squareControl(row, column, number))
                     {
-                        sudokuArray[row - 1][column - 1] = number;
-                        return true;
+                        if (sudokuArray[row - 1][column - 1]==0)
+                        {
+                            sudokuArray[row - 1][column - 1] = number;
+                            return true;
+                        }
                     }
                 }
             }
-        }
 
         return false;
     }

@@ -6,7 +6,6 @@ using namespace std;
 
 int main()
 {
-
     Player p;
 
     int difficulty,
