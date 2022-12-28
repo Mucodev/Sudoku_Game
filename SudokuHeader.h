@@ -296,6 +296,8 @@ public:
                 output << "  | - - - + - - - + - - -" << endl;
             }
         }
+
+        return output;
     }
 };
 
