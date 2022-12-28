@@ -333,11 +333,12 @@ public:
         cout << "---------------------------------------" << endl;
 
         string line;
-		while(!file.eof()){
-			getline(file, line);
-			cout << line << endl;
-		}
-
+	while(!file.eof())
+        {
+		getline(file, line);
+		cout << line << endl;
+	}
+        
         file.close();
     }
 };
