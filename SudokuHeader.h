@@ -319,7 +319,7 @@ public:
 
         else if (difficulty == 2)
         {
-            int score = (6000 - time) * 2.5;
+            score = (6000 - time) * 3;
         }
 
         else if (difficulty == 3)
