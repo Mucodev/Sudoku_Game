@@ -2,7 +2,6 @@
 #define Sudoku
 
 #include <iostream>
-#include <vector>
 #include <iomanip>
 #include <conio.h>
 #include <time.h>
@@ -15,7 +14,7 @@ using namespace std;
 class SudokuGame
 {
 private:
-    int sudokuArray[9][9] =
+    int sudokuArray[9][9] =    //Simple sudoku puzzle. We use this pattern because if we don't our puzzle that is generated randomly doesn't have any solution
             {
                     {1, 2, 3, 4, 5, 6, 7, 8, 9},
                     {4, 5, 6, 7, 8, 9, 1, 2, 3},
@@ -28,15 +27,15 @@ private:
                     {9, 7, 8, 3, 1, 2, 6, 4, 5}
             };
 
-    int sudokuSol[9][9],
+    int sudokuSol[9][9],  //Arrays for Sudoku Solution and deleting function
             sudokuDel[9][9];
 
-    bool columnControl(int column, int tnumber)
+    bool columnControl(int column, int tnumber)  // Column control
     {
         for (int i = 0; i < 9; i++)
         {
 
-            if (sudokuArray[i][column - 1] == tnumber)
+            if (sudokuArray[i][column - 1] == tnumber)  // if the number is in the column returns false
             {
                 return false;
             }
@@ -44,7 +43,7 @@ private:
         return true;
     }
 
-    bool rowControl(int row, int tnumber)
+    bool rowControl(int row, int tnumber) // Row Control
     {
         for (int i = 0; i < 9; i++)
         {
@@ -56,11 +55,11 @@ private:
         return true;
     }
 
-    bool squareControl(int row, int column, int tnumber)
+    bool squareControl(int row, int column, int tnumber)  //Square Control, controlling 3x3 sudoku boxes
     {
         int r, c;
 
-        if (row <= 3)
+        if (row <= 3)  
         {
             r = 3;
         }
@@ -105,11 +104,11 @@ private:
     }
 
 protected:
-    int score;
+    int score; // Player Score
 
 public:
 
-    SudokuGame()
+    SudokuGame() // Default constructor, shows puzzle rules
     {
         cout << setw(50) << "Welcome to Sudoku Game" << endl
              << setw(40)
@@ -123,7 +122,7 @@ public:
         cout << endl;
     }
 
-    SudokuGame(int difficulty)
+    SudokuGame(int difficulty) // overloaded Constructor, generates sudoku puzzle solution
     {
         srand(time(NULL));
         int count = 0;
@@ -148,7 +147,7 @@ public:
             }
         }
 
-        sudokuCopy(sudokuSol, sudokuArray);
+        sudokuCopy(sudokuSol, sudokuArray); // copying solution 
 
         int flag;
 
@@ -165,7 +164,7 @@ public:
             flag = 25;
         }
 
-        while (count != 81 - flag)
+        while (count != 81 - flag) // placing '0' randomly to create puzzle
         {
             int row = rand() % 9;
             int col = rand() % 9;
@@ -177,10 +176,10 @@ public:
             }
         }
 
-        sudokuCopy(sudokuDel, sudokuArray);
+        sudokuCopy(sudokuDel, sudokuArray); //copying puzzle for delete function
     }
 
-    void nDelete(int row, int column)
+    void nDelete(int row, int column) // If the entered number is zero, substitute "0" for the number that the player wishes to delete. 
     {
         if (sudokuDel[row - 1][column - 1] != sudokuArray[row - 1][column - 1] && sudokuArray[row - 1][column - 1] != 0)
         {
@@ -188,7 +187,7 @@ public:
         }
     }
 
-    bool inputs(int row, int column, int number)
+    bool inputs(int row, int column, int number) // if the entered number is true, function returns true and places the number right place
     {
         if (number == 0)
         {
@@ -214,7 +213,7 @@ public:
         return false;
     }
 
-    void showSolution()
+    void showSolution() //shows solution
     {
         cout << "#   1 2 3   4 5 6   7 8 9" << endl
              << "+ | - - - + - - - + - - -" << endl;
@@ -246,7 +245,7 @@ public:
         }
     }
 
-    void sudokuCopy(int first[9][9], int second[9][9])
+    void sudokuCopy(int first[9][9], int second[9][9]) // Array copy function
     {
         for (int i = 0; i < 9; i++)
         {
@@ -257,7 +256,7 @@ public:
         }
     }
 
-    friend ostream &operator<<(ostream &output, SudokuGame &obj)
+    friend ostream &operator<<(ostream &output, SudokuGame &obj) // '<<' operator overload. Displays the puzzle
     {
         output << endl
                << "#   1 2 3   4 5 6   7 8 9" << endl
@@ -301,18 +300,15 @@ public:
     }
 };
 
-class Player : public SudokuGame
+class Player : public SudokuGame // Player class inherited from Sudoku Game class 
 {
 public:
-    Player()
-    {
-
-    }
+    Player(){}
 
     fstream file;
     string fname = "scoreboard";
 
-    int ScoreCalculator(int time, int difficulty)
+    int ScoreCalculator(int time, int difficulty) //Score calculator
     {
         if (difficulty == 1)
         {
@@ -337,7 +333,7 @@ public:
         return score;
     }
 
-    void setScore(int score, int difficulty, string name)
+    void setScore(int score, int difficulty, string name) //Writing the scores to the file
     {
         file.open(fname, ios::app);
         if (difficulty == 1)
@@ -357,7 +353,7 @@ public:
         file.close();
     }
 
-    void showScore(void)
+    void showScore(void) //Displays the scores end of the game
     {
         file.open(fname, ios::in);
         cout << "---------------------------------------" << endl;
