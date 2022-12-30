@@ -31,7 +31,7 @@ private:
     int sudokuSol[9][9],
             sudokuDel[9][9];
 
-    bool columnControl(int column, int tnumber)   //Onur
+    bool columnControl(int column, int tnumber)
     {
         for (int i = 0; i < 9; i++)
         {
@@ -44,7 +44,7 @@ private:
         return true;
     }
 
-    bool rowControl(int row, int tnumber) // Mücahit
+    bool rowControl(int row, int tnumber)
     {
         for (int i = 0; i < 9; i++)
         {
@@ -56,7 +56,7 @@ private:
         return true;
     }
 
-    bool squareControl(int row, int column, int tnumber) // Alperen
+    bool squareControl(int row, int column, int tnumber)
     {
         int r, c;
 
@@ -152,11 +152,11 @@ public:
 
         int flag;
 
-        if (difficulty == 1) //Easy
+        if (difficulty == 1)
         {
             flag = 36;
         }
-        else if (difficulty == 2)//Medium
+        else if (difficulty == 2)
         {
             flag = 30;
         }
@@ -188,7 +188,7 @@ public:
         }
     }
 
-    bool inputs(int row, int column, int number)     //Onur
+    bool inputs(int row, int column, int number)
     {
         if (number == 0)
         {
@@ -214,7 +214,7 @@ public:
         return false;
     }
 
-    void showSolution()      // Mücahit
+    void showSolution()
     {
         cout << "#   1 2 3   4 5 6   7 8 9" << endl
              << "+ | - - - + - - - + - - -" << endl;
